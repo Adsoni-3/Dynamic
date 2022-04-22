@@ -8,7 +8,7 @@
           class="form-control"
           id="title"
           required
-          [(ngModel)]="tutorial.title"
+          [(ngModel)]="product.title"
           name="title"
         />
       </div>
@@ -19,17 +19,17 @@
           class="form-control"
           id="description"
           required
-          [(ngModel)]="tutorial.description"
+          [(ngModel)]="product.description"
           name="description"
         />
       </div>
 
-      <button (click)="saveTutorial()" class="btn btn-success">Submit</button>
+      <button (click)="saveProduct()" class="btn btn-success">Submit</button>
     </div>
 
     <div *ngIf="submitted">
-      <h4>Tutorial was submitted successfully!</h4>
-      <button class="btn btn-success" (click)="newTutorial()">Add</button>
+      <h4>Product was submitted successfully!</h4>
+      <button class="btn btn-success" (click)="newProduct()">Add</button>
     </div>
   </div>
 </div>

@@ -1,16 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { TutorialService } from 'src/app/services/tutorial.service';
+import { ProductService } from 'src/app/services/product.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Tutorial } from 'src/app/models/tutorial.model';
+import { Product } from 'src/app/models/product.model';
 
 @Component({
-  selector: 'app-tutorial-details',
-  templateUrl: './tutorial-details.component.html',
-  styleUrls: ['./tutorial-details.component.css']
+  selector: 'app-product-details',
+  templateUrl: './product-details.component.html',
+  styleUrls: ['./product-details.component.css']
 })
-export class TutorialDetailsComponent implements OnInit {
+export class productDetailsComponent implements OnInit {
 
-  currentTutorial: Tutorial = {
+  currentproduct: Product = {
     title: '',
     description: '',
     published: false
@@ -18,20 +18,20 @@ export class TutorialDetailsComponent implements OnInit {
   message = '';
 
   constructor(
-    private tutorialService: TutorialService,
+    private productService: ProductService,
     private route: ActivatedRoute,
     private router: Router) { }
 
   ngOnInit(): void {
     this.message = '';
-    this.getTutorial(this.route.snapshot.params.id);
+    this.getproduct(this.route.snapshot.params.id);
   }
 
-  getTutorial(id: string): void {
-    this.tutorialService.get(id)
+  getproduct(id: string): void {
+    this.productService.get(id)
       .subscribe(
         data => {
-          this.currentTutorial = data;
+          this.currentproduct = data;
           console.log(data);
         },
         error => {
@@ -41,17 +41,17 @@ export class TutorialDetailsComponent implements OnInit {
 
   updatePublished(status: boolean): void {
     const data = {
-      title: this.currentTutorial.title,
-      description: this.currentTutorial.description,
+      title: this.currentproduct.title,
+      description: this.currentproduct.description,
       published: status
     };
 
     this.message = '';
 
-    this.tutorialService.update(this.currentTutorial.id, data)
+    this.productService.update(this.currentproduct.id, data)
       .subscribe(
         response => {
-          this.currentTutorial.published = status;
+          this.currentproduct.published = status;
           console.log(response);
           this.message = response.message ? response.message : 'The status was updated successfully!';
         },
@@ -60,26 +60,26 @@ export class TutorialDetailsComponent implements OnInit {
         });
   }
 
-  updateTutorial(): void {
+  updateproduct(): void {
     this.message = '';
 
-    this.tutorialService.update(this.currentTutorial.id, this.currentTutorial)
+    this.productService.update(this.currentproduct.id, this.currentproduct)
       .subscribe(
         response => {
           console.log(response);
-          this.message = response.message ? response.message : 'This tutorial was updated successfully!';
+          this.message = response.message ? response.message : 'This product was updated successfully!';
         },
         error => {
           console.log(error);
         });
   }
 
-  deleteTutorial(): void {
-    this.tutorialService.delete(this.currentTutorial.id)
+  deleteproduct(): void {
+    this.productService.delete(this.currentproduct.id)
       .subscribe(
         response => {
           console.log(response);
-          this.router.navigate(['/tutorials']);
+          this.router.navigate(['/products']);
         },
         error => {
           console.log(error);
